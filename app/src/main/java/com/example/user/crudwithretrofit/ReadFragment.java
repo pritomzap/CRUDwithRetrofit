@@ -1,8 +1,8 @@
 package com.example.user.crudwithretrofit;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,13 +81,15 @@ public class ReadFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_read, container, false);
 
         recyclerView = (RecyclerView)v.findViewById(R.id.recycler);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        //layoutManager = new LinearLayoutManager(getActivity());
+
+        //recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         Call<List<Trains>> call = apiInterface.getTrains();
+
         call.enqueue(new Callback<List<Trains>>() {
             @Override
             public void onResponse(Call<List<Trains>> call, Response<List<Trains>> response) {
@@ -106,5 +108,9 @@ public class ReadFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+    }
 }

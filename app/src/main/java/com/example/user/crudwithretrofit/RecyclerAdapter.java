@@ -18,6 +18,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
 
     public RecyclerAdapter(List<Trains> trains) {
         this.trains = trains;
+
     }
 
     @Override
