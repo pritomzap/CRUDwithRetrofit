@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_create) {
+
+            WriteFragment writeFragment = new WriteFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,writeFragment,"fragment2");
+            fragmentTransaction.commit();
             // Handle the camera action
         } else if (id == R.id.nav_read) {
             //setTitle("Read from database");

@@ -3,6 +3,7 @@ package com.example.user.crudwithretrofit;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class ReadFragment extends Fragment {
+    private String TAG = "ReadFragment";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,12 +83,13 @@ public class ReadFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_read, container, false);
 
         recyclerView = (RecyclerView)v.findViewById(R.id.recycler);
-        //layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getContext());
 
-        //recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        //Toast.makeText(v.getContext(),"asdasd",Toast.LENGTH_LONG).show();
 
         Call<List<Trains>> call = apiInterface.getTrains();
 
@@ -94,9 +97,12 @@ public class ReadFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Trains>> call, Response<List<Trains>> response) {
                 trains = response.body();
+                //Log.d(TAG, "onResponse: .......................................... "+trains.get(0).getName());
+
                 adapter = new RecyclerAdapter(trains);
                 recyclerView.setAdapter(adapter);
-                //Toast.makeText(getActivity(),"asdasd",Toast.LENGTH_LONG).show();
+
+
             }
 
             @Override

@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.example.user.crudwithretrofit.WriteFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:paddingTop="40dp"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint = "@string/name"
+            android:textColorHint="@color/colorAccent"
+            android:id="@+id/namefield"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="40dp"
+        android:paddingLeft="55dp"
+        android:paddingRight="45dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/select"
+            android:textSize="18dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:id="@+id/spinner"
+            android:layout_height="wrap_content"></Spinner>
+
+
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="40dp"
+        android:layout_weight="0.18"
+        android:layout_gravity="center"
+        android:background="@drawable/roundcorner"
+        app:srcCompat="@drawable/submit" />
+
+
+
+</LinearLayout>

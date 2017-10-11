@@ -8,4 +8,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="name">Name</string>
+    <string name="type">Type</string>
+    <string name="register">List</string>
+    <string name="error">Network Error</string>
+    <string-array name="train_types">
+        <item>Intercity</item>
+        <item>Mail</item>
+        <item>Express</item>
+    </string-array>
+    <string name="select">Train Type:</string>
 </resources>
