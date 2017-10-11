@@ -17,6 +17,6 @@ public interface ApiInterface {
     Call<List<Trains>> getTrains();
 
     @GET("insertTable.php")
-    Call<Message> setTrains(@Query("name") String name,
+    Call<Trains> setTrains(@Query("name") String name,
                            @Query("type") String type);
 }

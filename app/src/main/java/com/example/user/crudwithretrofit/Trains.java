@@ -14,7 +14,13 @@ public class Trains {
     public String type;
 
 
+    @SerializedName("message")
+    public String message;
 
+
+    public String getMessage() {
+        return message;
+    }
 
     public String getName() {
         return name;

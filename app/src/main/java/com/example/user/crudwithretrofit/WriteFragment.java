@@ -123,16 +123,16 @@ public class WriteFragment extends Fragment {
 
     public void apiCall(){
         apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<Message> call = apiInterface.setTrains(name,type);
-        call.enqueue(new Callback<Message>() {
+        Call<Trains> call = apiInterface.setTrains(name,type);
+        call.enqueue(new Callback<Trains>() {
             @Override
-            public void onResponse(Call<Message> call, Response<Message> response) {
+            public void onResponse(Call<Trains> call, Response<Trains> response) {
                 String message = response.body().getMessage();
                 Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<Message> call, Throwable t) {
+            public void onFailure(Call<Trains> call, Throwable t) {
 
             }
         });
