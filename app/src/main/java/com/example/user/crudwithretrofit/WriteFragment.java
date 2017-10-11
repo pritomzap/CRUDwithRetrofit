@@ -12,6 +12,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +36,9 @@ public class WriteFragment extends Fragment {
     private String mParam2;
     private Spinner spinner;
     private String type;
+    private String name;
+    private ApiInterface apiInterface;
+
     private ImageButton imageButton;
     private EditText editText;
     ArrayAdapter<CharSequence> adapter;
@@ -81,29 +88,54 @@ public class WriteFragment extends Fragment {
         editText = (EditText)v.findViewById(R.id.namefield);
 
         //Toast.makeText(getContext(),name,Toast.LENGTH_LONG).show();
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = editText.getText().toString();
-                Toast.makeText(getContext(),name,Toast.LENGTH_LONG).show();
 
-            }
-        });
+
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                type = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getContext(),type,Toast.LENGTH_LONG).show();
+                type = (String)parent.getItemAtPosition(position);
 
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent){
+
+            }
+        });
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name = editText.getText().toString();
+                if(name.isEmpty()==false){
+                    apiCall();
+                }
+                else{
+                    Toast.makeText(getActivity(),"Please enter name",Toast.LENGTH_LONG).show();
+                }
 
             }
         });
         //Toast.makeText(getContext(),getType(),Toast.LENGTH_LONG).show();
         return v;
+    }
+
+    public void apiCall(){
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<Message> call = apiInterface.setTrains(name,type);
+        call.enqueue(new Callback<Message>() {
+            @Override
+            public void onResponse(Call<Message> call, Response<Message> response) {
+                String message = response.body().getMessage();
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Message> call, Throwable t) {
+
+            }
+        });
     }
 
 }

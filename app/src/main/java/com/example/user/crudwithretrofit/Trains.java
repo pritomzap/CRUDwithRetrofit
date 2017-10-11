@@ -13,6 +13,9 @@ public class Trains {
     @SerializedName("type")
     public String type;
 
+
+
+
     public String getName() {
         return name;
     }
