@@ -13,9 +13,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private RecyclerAdapter adapter;
+    private List<Trains> trains;
+    private ApiInterface apiInterface;
+    private DatabaseHelper databaseHelper;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +60,9 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame,readFragment,"fragment1");
         fragmentTransaction.commit();
+
+        serverFetch();
+
     }
 
     @Override
@@ -105,9 +123,65 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_delete) {
 
         }
+        else if (id == R.id.sql_show){
+            SQLshow_frag sqLshowfrag = new SQLshow_frag();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,sqLshowfrag,"fragment1");
+            fragmentTransaction.commit();
+
+        }
+        else if (id == R.id.sql_insert){
+            SQLinsert_frag sqLinsertFrag = new SQLinsert_frag();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,sqLinsertFrag,"fragment1");
+            fragmentTransaction.commit();
+        }
+        else if (id == R.id.sql_delete){
+
+        }
+        else if (id == R.id.sql_update){
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+
+    public void serverFetch(){
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<List<Trains>> call = apiInterface.getTrains();
+        databaseHelper = new DatabaseHelper(getBaseContext());
+
+        if(databaseHelper.emptyCheck() == false){
+
+
+            call.enqueue(new Callback<List<Trains>>() {
+                @Override
+                public void onResponse(Call<List<Trains>> call, Response<List<Trains>> response) {
+                    trains = response.body();
+                    //Log.d(TAG, "onResponse: .......................................... "+trains.get(0).getName());
+
+                    boolean result;
+                    for (int i = 0;i < trains.size();i++){
+                        result = databaseHelper.insertData(trains.get(i).getName(),trains.get(i).getType());
+                        if (result == false)
+                            Toast.makeText(getBaseContext(),"NOT INSERTED",Toast.LENGTH_LONG).show();
+
+                    }
+                    adapter = new RecyclerAdapter(trains);
+                }
+
+                @Override
+                public void onFailure(Call<List<Trains>> call, Throwable t) {
+
+                }
+            });
+        }
+
+        databaseHelper.close();
     }
 }

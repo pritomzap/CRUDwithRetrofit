@@ -20,6 +20,30 @@
             android:title="Delete" />
     </group>
 
+    <item android:title="SQLite"
+        android:checkableBehavior="single">
+        <menu>
+            <item
+                android:id="@+id/sql_show"
+
+                android:title="Show" />
+
+            <item
+                android:id="@+id/sql_insert"
+
+                android:title="Insert" />
+            <item
+                android:id="@+id/sql_delete"
+
+                android:title="Delete" />
+            <item
+                android:id="@+id/sql_update"
+
+                android:title="Update" />
+        </menu>
+    </item>
+
+
 
 
 </menu>

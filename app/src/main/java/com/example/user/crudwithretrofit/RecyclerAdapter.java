@@ -1,5 +1,6 @@
 package com.example.user.crudwithretrofit;
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Myview
 
     public RecyclerAdapter(List<Trains> trains) {
         this.trains = trains;
+
+    }
+
+    public RecyclerAdapter(Cursor cursor){
 
     }
 

@@ -13,6 +13,14 @@ public class Trains {
     @SerializedName("type")
     public String type;
 
+    public Trains() {
+
+    }
+
+    public Trains(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
 
     @SerializedName("message")
     public String message;

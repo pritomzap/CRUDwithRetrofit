@@ -41,7 +41,7 @@ public class WriteFragment extends Fragment {
 
     private ImageButton imageButton;
     private EditText editText;
-    ArrayAdapter<CharSequence> adapter;
+    private ArrayAdapter<CharSequence> adapter;
     //private OnFragmentInteractionListener mListener;
 
     public WriteFragment() {
@@ -117,7 +117,7 @@ public class WriteFragment extends Fragment {
 
             }
         });
-        //Toast.makeText(getContext(),getType(),Toast.LENGTH_LONG).show();
+
         return v;
     }
 
