@@ -62,4 +62,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return false;
     }
+
+    public void deleteEntry(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String where = col2+" = '"+name+"'";
+
+        db.delete(tableName,where,null);
+
+
+    }
+
+    public void updateEntry(String uname,String utype){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String where = col2+" = '"+uname+"'";
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(col2,uname);
+        contentValues.put(col3,utype);
+        db.update(tableName,contentValues,where,null);
+
+    }
 }

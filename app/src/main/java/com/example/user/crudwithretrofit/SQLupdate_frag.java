@@ -1,19 +1,17 @@
 package com.example.user.crudwithretrofit;
 
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -21,11 +19,10 @@ import retrofit2.Response;
  * Activities that contain this fragment must implement the
 
  * to handle interaction events.
- * Use the {@link ReadFragment#newInstance} factory method to
+ * Use the {@link SQLupdate_frag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReadFragment extends Fragment {
-    private String TAG = "ReadFragment";
+public class SQLupdate_frag extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,17 +32,16 @@ public class ReadFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //main variables
+
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
-    private List<Trains> trains;
-    private ApiInterface apiInterface;
-    //end main variables
+    private DatabaseHelper databaseHelper;
+    private List<Trains> trainses;
 
+   // private OnFragmentInteractionListener mListener;
 
-
-    public ReadFragment() {
+    public SQLupdate_frag() {
         // Required empty public constructor
     }
 
@@ -55,11 +51,11 @@ public class ReadFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ReadFragment.
+     * @return A new instance of fragment SQLupdate_frag.
      */
     // TODO: Rename and change types and number of parameters
-    public static ReadFragment newInstance(String param1, String param2) {
-        ReadFragment fragment = new ReadFragment();
+    public static SQLupdate_frag newInstance(String param1, String param2) {
+        SQLupdate_frag fragment = new SQLupdate_frag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,44 +75,44 @@ public class ReadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_sqlupdate_frag, container, false);
 
-        View v = inflater.inflate(R.layout.fragment_read, container, false);
-
-        recyclerView = (RecyclerView)v.findViewById(R.id.recycler);
+        recyclerView = (RecyclerView)v.findViewById(R.id.recyle);
+        // Inflate the layout for this fragment
         layoutManager = new LinearLayoutManager(getContext());
+        databaseHelper  = new DatabaseHelper(getActivity());
+        trainses = new ArrayList<>();
+        Cursor cursor = databaseHelper.getData();
 
+        if(cursor.getCount() == 0){
+            Toast.makeText(getActivity(),"EMPTY",Toast.LENGTH_LONG).show();
+        }
+
+
+
+        List<String> name = new ArrayList<>();
+        List<String> type = new ArrayList<>();
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()){
+            name.add(cursor.getString(1));
+            type.add(cursor.getString(2));
+            cursor.moveToNext();
+        }
+        for (int i = 0;i < name.size();i++){
+            trainses.add(new Trains(name.get(i),type.get(i)));
+        }
+        adapter = new RecyclerAdapter(trainses,3);
+        //Toast.makeText(getActivity(),name.size(),Toast.LENGTH_LONG).show();
+        adapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        //Toast.makeText(v.getContext(),"asdasd",Toast.LENGTH_LONG).show();
-
-        Call<List<Trains>> call = apiInterface.getTrains();
-
-        call.enqueue(new Callback<List<Trains>>() {
-            @Override
-            public void onResponse(Call<List<Trains>> call, Response<List<Trains>> response) {
-                trains = response.body();
-                //Log.d(TAG, "onResponse: .......................................... "+trains.get(0).getName());
-
-                adapter = new RecyclerAdapter(trains,1);
-                recyclerView.setAdapter(adapter);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Trains>> call, Throwable t) {
-
-            }
-        });
-
+        recyclerView.setAdapter(adapter);
+        databaseHelper.close();
         return v;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    // TODO: Rename method, update argument and hook method into UI event
 
-    }
 }

@@ -104,7 +104,8 @@ public class SQLshow_frag extends Fragment {
         for (int i = 0;i < name.size();i++){
             trainses.add(new Trains(name.get(i),type.get(i)));
         }
-        recyclerAdapter = new RecyclerAdapter(trainses);
+        recyclerAdapter = new RecyclerAdapter(trainses,1);
+
         //Toast.makeText(getActivity(),name.size(),Toast.LENGTH_LONG).show();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);

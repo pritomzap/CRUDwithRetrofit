@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+
+    android:layout_height="80dp">
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="Santinagar express"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textStyle="bold"
+
+        android:id="@+id/name"/>
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="Santinagar express"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textStyle="bold"
+
+        android:id="@+id/type"/>
+
+    <ImageButton
+        android:id="@+id/cross"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@android:drawable/ic_delete" />
+
+</LinearLayout>

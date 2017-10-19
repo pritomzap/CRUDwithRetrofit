@@ -137,10 +137,17 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
         }
         else if (id == R.id.sql_delete){
+            SQLdelete_frag sqLdeleteFrag = new SQLdelete_frag();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,sqLdeleteFrag,"fragment1");
+            fragmentTransaction.commit();
 
         }
         else if (id == R.id.sql_update){
-
+            SQLupdate_frag sqLupdateFrag = new SQLupdate_frag();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frame,sqLupdateFrag,"fragment1");
+            fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -172,7 +179,7 @@ public class MainActivity extends AppCompatActivity
                             Toast.makeText(getBaseContext(),"NOT INSERTED",Toast.LENGTH_LONG).show();
 
                     }
-                    adapter = new RecyclerAdapter(trains);
+                    adapter = new RecyclerAdapter(trains,1);
                 }
 
                 @Override
